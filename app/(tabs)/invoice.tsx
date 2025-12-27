@@ -25,19 +25,21 @@ export default function InvoiceScreen() {
   const addInvoice = () => {
     if (!item || !quantity || !rate) return;
 
-    const total = Number(quantity) * Number(rate);
+    const qty = Number(quantity);
+    const price = Number(rate);
+
+    if (isNaN(qty) || isNaN(price)) return;
 
     const newInvoice: Invoice = {
       id: Date.now().toString(),
       item,
-      quantity: Number(quantity),
-      rate: Number(rate),
-      total,
+      quantity: qty,
+      rate: price,
+      total: qty * price,
     };
 
-    setInvoices([...invoices, newInvoice]);
+    setInvoices((prev) => [...prev, newInvoice]);
 
-    // clear input fields
     setItem("");
     setQuantity("");
     setRate("");
@@ -76,16 +78,20 @@ export default function InvoiceScreen() {
 
       <Text style={styles.subTitle}>Invoices</Text>
 
+      {invoices.length === 0 && (
+        <Text style={styles.emptyText}>No invoices added yet</Text>
+      )}
+
       <FlatList
         data={invoices}
         keyExtractor={(item) => item.id}
         renderItem={({ item }) => (
-          <View style={styles.invoiceCard}>
-            <Text>Item: {item.item}</Text>
+          <TouchableOpacity style={styles.invoiceCard} activeOpacity={0.7}>
+            <Text style={styles.invoiceItem}>Item: {item.item}</Text>
             <Text>Qty: {item.quantity}</Text>
             <Text>Rate: ₹{item.rate}</Text>
-            <Text style={{ fontWeight: "bold" }}>Total: ₹{item.total}</Text>
-          </View>
+            <Text style={styles.invoiceTotal}>Total: ₹{item.total}</Text>
+          </TouchableOpacity>
         )}
       />
     </View>
@@ -93,28 +99,64 @@ export default function InvoiceScreen() {
 }
 
 const styles = StyleSheet.create({
-  container: { flex: 1, padding: 20, backgroundColor: "#fff" },
-  title: { fontSize: 22, fontWeight: "bold", marginBottom: 15 },
-  subTitle: { fontSize: 18, fontWeight: "bold", marginVertical: 15 },
+  container: {
+    flex: 1,
+    padding: 20,
+    backgroundColor: "#fff",
+  },
+  title: {
+    fontSize: 22,
+    fontWeight: "bold",
+    marginBottom: 15,
+  },
+  subTitle: {
+    fontSize: 18,
+    fontWeight: "bold",
+    marginVertical: 15,
+  },
   input: {
     borderWidth: 1,
-    borderColor: "#ccc",
-    padding: 10,
-    marginBottom: 10,
-    borderRadius: 6,
-  },
-  button: {
-    backgroundColor: "#2e86de",
-    padding: 15,
-    borderRadius: 6,
-    alignItems: "center",
-  },
-  buttonText: { color: "#fff", fontWeight: "600" },
-  invoiceCard: {
+    borderColor: "#dd9052ff",
+    borderLeftWidth: 6,
+    borderLeftColor: "#d32b05ff",
     padding: 12,
     marginBottom: 10,
-    borderWidth: 1,
-    borderColor: "#ddd",
-    borderRadius: 6,
+    borderRadius: 12,
+  },
+  button: {
+    backgroundColor: "#dd9052ff",
+    padding: 16,
+    borderRadius: 8,
+    alignItems: "center",
+    marginTop: 5,
+  },
+  buttonText: {
+    color: "#fff",
+    fontWeight: "600",
+  },
+  emptyText: {
+    textAlign: "center",
+    color: "#777",
+    marginTop: 10,
+  },
+  invoiceCard: {
+    padding: 14,
+    marginBottom: 12,
+    borderRadius: 10,
+    backgroundColor: "#e9e4deff",
+    borderLeftWidth: 4,
+    borderLeftColor: "#d32b05ff",
+    elevation: 9,
+  },
+  invoiceItem: {
+    fontSize: 16,
+    fontWeight: "600",
+    marginBottom: 4,
+  },
+  invoiceTotal: {
+    marginTop: 6,
+    fontSize: 15,
+    fontWeight: "bold",
+    color: "#921414ff",
   },
 });
