@@ -1,8 +1,10 @@
-import { router } from "expo-router";
+import { useRouter } from "expo-router";
 
 import { StyleSheet, Text, TouchableOpacity, View } from "react-native";
 
 export default function DashboardScreen() {
+  const router = useRouter();
+
   return (
     <View style={styles.container}>
       <Text style={styles.title}>Retail Management</Text>
@@ -14,11 +16,17 @@ export default function DashboardScreen() {
         <Text style={styles.cardText}>Create Invoice</Text>
       </TouchableOpacity>
 
-      <TouchableOpacity style={styles.card}>
+      <TouchableOpacity
+        style={styles.card}
+        onPress={() => router.push("/customers")}
+      >
         <Text style={styles.cardText}>Customers</Text>
       </TouchableOpacity>
 
-      <TouchableOpacity style={styles.card}>
+      <TouchableOpacity
+        style={styles.card}
+        onPress={() => router.push("/stock")}
+      >
         <Text style={styles.cardText}>Stock Management</Text>
       </TouchableOpacity>
     </View>
@@ -26,26 +34,14 @@ export default function DashboardScreen() {
 }
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    padding: 20,
-    backgroundColor: "#f4f6f8",
-  },
-  title: {
-    fontSize: 22,
-    fontWeight: "bold",
-    marginBottom: 20,
-    textAlign: "center",
-  },
+  container: { flex: 1, padding: 20, backgroundColor: "#f5f5f5" },
+  title: { fontSize: 22, fontWeight: "bold", marginBottom: 20 },
   card: {
-    backgroundColor: "#ffffff",
+    backgroundColor: "#fff",
     padding: 20,
-    marginVertical: 10,
-    borderRadius: 8,
+    borderRadius: 12,
+    marginBottom: 15,
     elevation: 3,
   },
-  cardText: {
-    fontSize: 16,
-    fontWeight: "600",
-  },
+  cardText: { fontSize: 16, fontWeight: "600" },
 });
