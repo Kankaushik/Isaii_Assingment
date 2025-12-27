@@ -1,3 +1,5 @@
+import AsyncStorage from "@react-native-async-storage/async-storage";
+import { useEffect } from "react";
 import { useState } from "react";
 import { useCustomer } from "../context/CustomerContext";
 import { useStock } from "../context/StockContext";

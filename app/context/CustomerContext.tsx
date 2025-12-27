@@ -1,4 +1,11 @@
-import React, { createContext, ReactNode, useContext, useState } from "react";
+import AsyncStorage from "@react-native-async-storage/async-storage";
+import React, {
+  createContext,
+  ReactNode,
+  useContext,
+  useEffect,
+  useState,
+} from "react";
 
 type Customer = {
   id: string;
@@ -15,6 +22,8 @@ type CustomerContextType = {
 const CustomerContext = createContext<CustomerContextType | undefined>(
   undefined
 );
+
+const CUSTOMER_KEY = "APP_CUSTOMER_DATA";
 
 const initialCustomers: Customer[] = [
   {
@@ -39,6 +48,20 @@ const initialCustomers: Customer[] = [
 
 export function CustomerProvider({ children }: { children: ReactNode }) {
   const [customers, setCustomers] = useState<Customer[]>(initialCustomers);
+
+  useEffect(() => {
+    const loadCustomers = async () => {
+      const saved = await AsyncStorage.getItem(CUSTOMER_KEY);
+      if (saved) {
+        setCustomers(JSON.parse(saved));
+      }
+    };
+    loadCustomers();
+  }, []);
+
+  useEffect(() => {
+    AsyncStorage.setItem(CUSTOMER_KEY, JSON.stringify(customers));
+  }, [customers]);
 
   const addPendingAmount = (customerName: string, amount: number) => {
     setCustomers((prev) =>
