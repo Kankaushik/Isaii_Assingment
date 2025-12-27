@@ -1,26 +1,17 @@
 import { FlatList, StyleSheet, Text, View } from "react-native";
-
-type StockItem = {
-  id: string;
-  name: string;
-  price: number;
-  quantity: number;
-};
-
-const stockData: StockItem[] = [
-  { id: "1", name: "Rice (1kg)", price: 60, quantity: 25 },
-  { id: "2", name: "Wheat Flour (1kg)", price: 55, quantity: 8 },
-  { id: "3", name: "Sugar (1kg)", price: 45, quantity: 15 },
-  { id: "4", name: "Cooking Oil (1L)", price: 140, quantity: 5 },
-];
+import { useStock } from "../context/StockContext";
 
 export default function StockScreen() {
+  const { stock } = useStock();
+
+  console.log("STOCK FROM CONTEXT:", stock);
+
   return (
     <View style={styles.container}>
       <Text style={styles.title}>Stock Management</Text>
 
       <FlatList
-        data={stockData}
+        data={stock}
         keyExtractor={(item) => item.id}
         renderItem={({ item }) => {
           const lowStock = item.quantity <= 10;
@@ -28,7 +19,7 @@ export default function StockScreen() {
           return (
             <View style={[styles.card, lowStock && styles.lowStockCard]}>
               <Text style={styles.name}>{item.name}</Text>
-              <Text>Price: ₹{item.price}</Text>
+
               <Text style={[styles.quantity, lowStock && styles.lowStockText]}>
                 Available: {item.quantity}
               </Text>

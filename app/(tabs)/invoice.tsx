@@ -1,4 +1,6 @@
 import { useState } from "react";
+import { useStock } from "../context/StockContext";
+
 import {
   FlatList,
   StyleSheet,
@@ -17,6 +19,9 @@ type Invoice = {
 };
 
 export default function InvoiceScreen() {
+  // 🔥 get reduceStock from context
+  const { reduceStock } = useStock();
+
   const [item, setItem] = useState("");
   const [quantity, setQuantity] = useState("");
   const [rate, setRate] = useState("");
@@ -38,8 +43,13 @@ export default function InvoiceScreen() {
       total: qty * price,
     };
 
+    // add invoice
     setInvoices((prev) => [...prev, newInvoice]);
 
+    // 🔥 AUTO STOCK REDUCTION (THIS IS THE KEY)
+    reduceStock(item, qty);
+
+    // clear inputs
     setItem("");
     setQuantity("");
     setRate("");
@@ -50,7 +60,7 @@ export default function InvoiceScreen() {
       <Text style={styles.title}>Create Invoice</Text>
 
       <TextInput
-        placeholder="Item Name"
+        placeholder="Item "
         style={styles.input}
         value={item}
         onChangeText={setItem}
@@ -86,12 +96,12 @@ export default function InvoiceScreen() {
         data={invoices}
         keyExtractor={(item) => item.id}
         renderItem={({ item }) => (
-          <TouchableOpacity style={styles.invoiceCard} activeOpacity={0.7}>
+          <View style={styles.invoiceCard}>
             <Text style={styles.invoiceItem}>Item: {item.item}</Text>
             <Text>Qty: {item.quantity}</Text>
             <Text>Rate: ₹{item.rate}</Text>
             <Text style={styles.invoiceTotal}>Total: ₹{item.total}</Text>
-          </TouchableOpacity>
+          </View>
         )}
       />
     </View>
