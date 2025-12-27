@@ -19,7 +19,6 @@ type Invoice = {
 };
 
 export default function InvoiceScreen() {
-  // 🔥 get reduceStock from context
   const { reduceStock } = useStock();
 
   const [item, setItem] = useState("");
@@ -43,13 +42,10 @@ export default function InvoiceScreen() {
       total: qty * price,
     };
 
-    // add invoice
     setInvoices((prev) => [...prev, newInvoice]);
 
-    // 🔥 AUTO STOCK REDUCTION (THIS IS THE KEY)
     reduceStock(item, qty);
 
-    // clear inputs
     setItem("");
     setQuantity("");
     setRate("");
