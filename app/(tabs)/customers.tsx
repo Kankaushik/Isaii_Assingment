@@ -27,7 +27,8 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     padding: 20,
-    backgroundColor: "#fff",
+    backgroundColor: "#e3b2b2ff",
+    marginTop: 40,
   },
   title: {
     fontSize: 22,
@@ -38,9 +39,10 @@ const styles = StyleSheet.create({
     padding: 14,
     marginBottom: 12,
     borderRadius: 10,
-    backgroundColor: "#f9fbff",
-    borderLeftWidth: 4,
-    borderLeftColor: "#e67e22",
+    backgroundColor: "#c3decbff",
+    borderBottomEndRadius: 18,
+    borderLeftWidth: 5,
+    borderLeftColor: "#8b5770ff",
     elevation: 2,
   },
   name: {

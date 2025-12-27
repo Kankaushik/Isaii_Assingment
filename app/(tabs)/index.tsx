@@ -34,12 +34,13 @@ export default function DashboardScreen() {
 }
 
 const styles = StyleSheet.create({
-  container: { flex: 1, padding: 20, backgroundColor: "#f5f5f5" },
-  title: { fontSize: 22, fontWeight: "bold", marginBottom: 20 },
+  container: { flex: 1, padding: 20, backgroundColor: "#b5d1bdff" },
+  title: { fontSize: 22, fontWeight: "bold", marginBottom: 20, marginTop: 40 },
   card: {
-    backgroundColor: "#fff",
+    backgroundColor: "#e3b2b2ff",
     padding: 20,
-    borderRadius: 12,
+    borderBottomEndRadius: 20,
+    borderTopLeftRadius: 15,
     marginBottom: 15,
     elevation: 3,
   },

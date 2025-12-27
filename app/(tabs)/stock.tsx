@@ -32,30 +32,34 @@ export default function StockScreen() {
         }}
       />
 
-      {/* DEV RESET BUTTON */}
       <TouchableOpacity style={styles.resetBtn} onPress={resetStock}>
-        <Text style={styles.resetText}>Reset Stock (Dev)</Text>
+        <Text style={styles.resetText}>Reset Stock</Text>
       </TouchableOpacity>
     </View>
   );
 }
 
 const styles = StyleSheet.create({
-  container: { flex: 1, padding: 20, backgroundColor: "#fff" },
+  container: {
+    flex: 1,
+    padding: 20,
+    backgroundColor: "#e3b2b2ff",
+    marginTop: 40,
+  },
   title: { fontSize: 22, fontWeight: "bold", marginBottom: 15 },
 
   card: {
     padding: 14,
     marginBottom: 12,
     borderRadius: 10,
-    backgroundColor: "#f9fbff",
+    backgroundColor: "#c3decbff",
     borderLeftWidth: 4,
-    borderLeftColor: "#2ecc71",
+    borderLeftColor: "#8b5770ff",
   },
 
   lowStockCard: {
-    borderLeftColor: "#e74c3c",
-    backgroundColor: "#fff5f5",
+    borderLeftColor: "#8b5770ff",
+    backgroundColor: "#c3decbff",
   },
 
   name: { fontSize: 16, fontWeight: "600" },
@@ -67,7 +71,9 @@ const styles = StyleSheet.create({
   resetBtn: {
     marginTop: 20,
     padding: 14,
-    backgroundColor: "#e67e22",
+    backgroundColor: "#688173ff",
+    borderBottomRightRadius: 18,
+    borderTopLeftRadius: 15,
     borderRadius: 8,
     alignItems: "center",
   },

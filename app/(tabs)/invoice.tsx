@@ -1,5 +1,3 @@
-import AsyncStorage from "@react-native-async-storage/async-storage";
-import { useEffect } from "react";
 import { useState } from "react";
 import { useCustomer } from "../context/CustomerContext";
 import { useStock } from "../context/StockContext";
@@ -126,7 +124,8 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     padding: 20,
-    backgroundColor: "#fff",
+    backgroundColor: "#e3b2b2ff",
+    marginTop: 40,
   },
   title: {
     fontSize: 22,
@@ -140,17 +139,19 @@ const styles = StyleSheet.create({
   },
   input: {
     borderWidth: 1,
-    borderColor: "#dd9052ff",
+    borderColor: "#326e34ff",
     borderLeftWidth: 6,
-    borderLeftColor: "#d32b05ff",
+    borderLeftColor: "#3a5d2fff",
     padding: 12,
     marginBottom: 10,
-    borderRadius: 12,
+    borderBottomRightRadius: 18,
+    borderTopLeftRadius: 15,
   },
   button: {
-    backgroundColor: "#dd9052ff",
+    backgroundColor: "#688173ff",
     padding: 16,
-    borderRadius: 8,
+    borderBottomRightRadius: 18,
+    borderTopLeftRadius: 15,
     alignItems: "center",
     marginTop: 5,
   },

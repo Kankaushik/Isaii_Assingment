@@ -1,50 +1,84 @@
-React Native Internship - Technical Task Assingment
+# Retail Management Application
 
-This is an [Expo](https://expo.dev) project created with [`create-expo-app`](https://www.npmjs.com/package/create-expo-app).
+This project is a simple "Retail Management mobile application" developed using "React Native and Expo".
 
-## Get started
+The application is designed to handle basic retail operations such as invoice creation, stock management, and tracking customer pending amounts. The focus of this project is on implementing correct business logic rather than adding excessive features.
 
-1. Install dependencies
+---
 
-   ```bash
-   npm install
-   ```
+## Purpose of the Application
 
-2. Start the app
+The objective of this application is to demonstrate how common retail activities can be managed digitally in a structured manner.
 
-   ```bash
-   npx expo start
-   ```
+The application shows how:
 
-In the output, you'll find options to open the app in a
+- Stock changes when a sale takes place
+- Customer dues are updated after billing
+- Data can be preserved even after the application is closed
 
-- [development build](https://docs.expo.dev/develop/development-builds/introduction/)
-- [Android emulator](https://docs.expo.dev/workflow/android-studio-emulator/)
-- [iOS simulator](https://docs.expo.dev/workflow/ios-simulator/)
-- [Expo Go](https://expo.dev/go), a limited sandbox for trying out app development with Expo
+---
 
-You can start developing by editing the files inside the **app** directory. This project uses [file-based routing](https://docs.expo.dev/router/introduction).
+## Key Features
 
-## Get a fresh project
+- Creation of invoices
+- Automatic reduction of stock after billing
+- Tracking of customer pending (due) amounts
+- Persistent data storage using local storage
+- Simple tab-based navigation for ease of use
 
-When you're ready, run:
+---
 
-```bash
-npm run reset-project
-```
+## Working of the Application
 
-This command will move the starter code to the **app-example** directory and create a blank **app** directory where you can start developing.
+- "Invoice Module"
 
-## Learn more
+  - Allows entry of item, quantity, rate, and customer name
+  - Automatically calculates the total amount
 
-To learn more about developing your project with Expo, look at the following resources:
+- "Stock Module"
 
-- [Expo documentation](https://docs.expo.dev/): Learn fundamentals, or go into advanced topics with our [guides](https://docs.expo.dev/guides).
-- [Learn Expo tutorial](https://docs.expo.dev/tutorial/introduction/): Follow a step-by-step tutorial where you'll create a project that runs on Android, iOS, and the web.
+  - Displays available stock
+  - Updates stock automatically after an invoice is created
 
-## Join the community
+- "Customer Module"
+  - Displays customer details and pending amount
+  - Pending amount increases based on invoice total
 
-Join our community of developers creating universal apps.
+---
 
-- [Expo on GitHub](https://github.com/expo/expo): View our open source platform and contribute.
-- [Discord community](https://chat.expo.dev): Chat with Expo users and ask questions.
+## Technologies Used
+
+- React Native
+- Expo Router
+- Context API
+- AsyncStorage
+
+---
+
+## Data Persistence
+
+The application uses "AsyncStorage" to store data locally.  
+This ensures that stock details and customer pending amounts are not lost when the application is restarted.
+
+---
+
+## Scope of the Assignment
+
+Some parts of the assignment, such as dealer management, alerts, reports, and AI-based features, are mentioned as advanced or conceptual modules.
+
+In this project, the emphasis has been placed on implementing the "core retail workflow" correctly. The remaining modules are considered as "future scope", as permitted by the assignment guidelines.
+
+---
+
+## Future Enhancements
+
+- Dropdown selection for items and customers
+- Validation to prevent selling more items than available stock
+- Customer-wise invoice history
+- Export of reports in PDF or CSV format
+
+---
+
+## Conclusion
+
+This project demonstrates a clear understanding of retail business logic, state management, and data persistence in a mobile application. It is suitable for academic evaluation and internship-level assessment.
