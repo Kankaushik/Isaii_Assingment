@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { useCustomer } from "../context/CustomerContext";
 import { useStock } from "../context/StockContext";
 
 import {
@@ -12,6 +13,7 @@ import {
 
 type Invoice = {
   id: string;
+  customer: string;
   item: string;
   quantity: number;
   rate: number;
@@ -20,32 +22,38 @@ type Invoice = {
 
 export default function InvoiceScreen() {
   const { reduceStock } = useStock();
+  const { addPendingAmount } = useCustomer();
 
+  const [customer, setCustomer] = useState("");
   const [item, setItem] = useState("");
   const [quantity, setQuantity] = useState("");
   const [rate, setRate] = useState("");
   const [invoices, setInvoices] = useState<Invoice[]>([]);
 
   const addInvoice = () => {
-    if (!item || !quantity || !rate) return;
+    if (!customer || !item || !quantity || !rate) return;
 
     const qty = Number(quantity);
     const price = Number(rate);
 
     if (isNaN(qty) || isNaN(price)) return;
 
+    const total = qty * price;
+
     const newInvoice: Invoice = {
       id: Date.now().toString(),
+      customer,
       item,
       quantity: qty,
       rate: price,
-      total: qty * price,
+      total,
     };
 
     setInvoices((prev) => [...prev, newInvoice]);
-
     reduceStock(item, qty);
+    addPendingAmount(customer, total);
 
+    setCustomer("");
     setItem("");
     setQuantity("");
     setRate("");
@@ -56,7 +64,14 @@ export default function InvoiceScreen() {
       <Text style={styles.title}>Create Invoice</Text>
 
       <TextInput
-        placeholder="Item "
+        placeholder="Customer Name"
+        style={styles.input}
+        value={customer}
+        onChangeText={setCustomer}
+      />
+
+      <TextInput
+        placeholder="Item"
         style={styles.input}
         value={item}
         onChangeText={setItem}
@@ -93,7 +108,8 @@ export default function InvoiceScreen() {
         keyExtractor={(item) => item.id}
         renderItem={({ item }) => (
           <View style={styles.invoiceCard}>
-            <Text style={styles.invoiceItem}>Item: {item.item}</Text>
+            <Text style={styles.invoiceItem}>Customer: {item.customer}</Text>
+            <Text>Item: {item.item}</Text>
             <Text>Qty: {item.quantity}</Text>
             <Text>Rate: ₹{item.rate}</Text>
             <Text style={styles.invoiceTotal}>Total: ₹{item.total}</Text>
